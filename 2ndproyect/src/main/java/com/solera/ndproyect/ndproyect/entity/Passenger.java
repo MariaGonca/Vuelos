@@ -123,4 +123,10 @@ public class Passenger {
 		this.age = age;
 	}
 
+	@Override
+	public String toString() {
+		return "Passenger [idPassenger=" + idPassenger + ", name=" + name + ", unsername=" + unsername
+				+ ", nationality=" + nationality + ", identification=" + identification + ", age=" + age + "]";
+	}
+
 }

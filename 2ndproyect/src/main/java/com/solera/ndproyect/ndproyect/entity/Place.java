@@ -19,15 +19,14 @@ public class Place {
 	@Id
 	@Column(name = "ID_PLACE")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idPlace;
+	private long idPlace;
 	
 	@Column(name = "NAME", unique=true)
 	@NotNull
 	@NotEmpty
 	private String name;
 
-	@OneToMany(mappedBy = "destination")
-	private List<Trip> trip;
+
 	
 	public Place(String name) {
 		this.name = name;
@@ -42,11 +41,7 @@ public class Place {
 		this.name = name;
 	}
 
-	public Place(Long idPlace, String name, List<Trip> trip) {
-		this.idPlace = idPlace;
-		this.name = name;
-		this.trip = trip;
-	}
+
 
 	public Long getIdPlace() {
 		return idPlace;
@@ -64,12 +59,11 @@ public class Place {
 		this.name = name;
 	}
 
-	public List<Trip> getTrip() {
-		return trip;
-	}
+	
 
-	public void setTrip(List<Trip> trip) {
-		this.trip = trip;
+	@Override
+	public String toString() {
+		return "Place [idPlace=" + idPlace + ", name=" + name + "]";
 	}
 
 }

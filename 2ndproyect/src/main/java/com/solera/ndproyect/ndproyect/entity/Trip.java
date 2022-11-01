@@ -28,19 +28,16 @@ public class Trip implements Serializable{
 	@Id
 	@Column(name = "ID_FLIGHT")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long flightNumber;
+	private long flight_id;
 	
-	@ManyToOne
-    @JoinColumn(name = "idOrigin", referencedColumnName = "ID_PLACE")
-	private Place origin;
+	@Column(name ="AIRLINE_ID")
+	private long idAirline;
 	
-	@ManyToOne
-    @JoinColumn(name = "idDestination", referencedColumnName = "ID_PLACE")
-	private Place destination;
+	@Column(name="ORIGIN")
+	private String origin;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idAirline", referencedColumnName = "ID_AIRLINE")
-	private AirLine airline;
+	@Column(name="DEST")
+	private String dest;
 	
 	@Column(name="SCALE")
 	@JsonFormat(pattern = "scale")
@@ -66,47 +63,16 @@ public class Trip implements Serializable{
 	@Column(name = "PRICE")
 	private float price;
 		
-	public Trip(Long flightNumber, Place origin, Place destination, AirLine airline, boolean scale, boolean luggage,
-			LocalDateTime departure, LocalDateTime arrival, boolean oneWay, float price) {
-		this.flightNumber = flightNumber;
-		this.origin = origin;
-		this.destination = destination;
-		this.airline = airline;
-		this.scale = scale;
-		this.luggage = luggage;
-		this.departure = departure;
-		this.arrival = arrival;
-		this.oneWay = oneWay;
-		this.price = price;
-	}
-
-	
-	
-	
-	public Trip(AirLine airline, boolean scale, boolean luggage,
-			boolean oneWay, float price) {
-		this.airline = airline;
-		this.scale = scale;
-		this.luggage = luggage;
-		this.oneWay = oneWay;
-		this.price = price;
-	}
-
 
 	public Trip(boolean scale, boolean luggage, boolean oneWay) {
 		this.scale = scale;
 		this.luggage = luggage;
 		this.oneWay = oneWay;
 	}
-	
-	
 
 	public Trip(boolean scale) {
 		this.scale = scale;
 	}
-
-
-
 
 	public Trip(boolean scale, boolean luggage, boolean oneWay, float price) {
 		this.scale = scale;
@@ -116,77 +82,6 @@ public class Trip implements Serializable{
 	}
 
 	public Trip() {
-	}
-
-	public Trip(Place origin, Place destination, AirLine airline, boolean scale, boolean luggage, boolean oneWay,
-			float price) {
-		super();
-		this.origin = origin;
-		this.destination = destination;
-		this.airline = airline;
-		this.scale = scale;
-		this.luggage = luggage;
-		this.oneWay = oneWay;
-		this.price = price;
-	}
-
-	public Trip(Place origin, Place destination, AirLine airline, boolean scale, boolean luggage,
-			LocalDateTime departure, LocalDateTime arrival, boolean oneWay, float price) {
-		super();
-		this.origin = origin;
-		this.destination = destination;
-		this.airline = airline;
-		this.scale = scale;
-		this.luggage = luggage;
-		this.departure = departure;
-		this.arrival = arrival;
-		this.oneWay = oneWay;
-		this.price = price;
-	}
-
-	public Trip(Long flightNumber, Place origin, Place destination, AirLine airline, boolean scale, boolean luggage,
-			boolean oneWay, float price) {
-		super();
-		this.flightNumber = flightNumber;
-		this.origin = origin;
-		this.destination = destination;
-		this.airline = airline;
-		this.scale = scale;
-		this.luggage = luggage;
-		this.oneWay = oneWay;
-		this.price = price;
-	}
-
-	public Long getFlightNumber() {
-		return flightNumber;
-	}
-
-	public void setFlightNumber(Long flightNumber) {
-		this.flightNumber = flightNumber;
-	}
-
-	public Place getOrigin() {
-		return origin;
-	}
-
-	public void setOrigin(Place origin) {
-		this.origin = origin;
-	}
-
-	public Place getDestination() {
-		return destination;
-	}
-
-	public void setDestination(Place destination) {
-		this.destination = destination;
-	}
-
-	public AirLine getAirline() {
-		return airline;
-	}
-
-	public void setAirline(AirLine airline) {
-		this.airline = airline;
 	}
 
 	public boolean isScale() {
@@ -234,6 +129,191 @@ public class Trip implements Serializable{
 	}
 
 	public void setPrice(float price) {
+		this.price = price;
+	}
+
+
+
+	public Trip(long flight_id, long idAirline, boolean scale, boolean luggage, LocalDateTime departure,
+			LocalDateTime arrival, boolean oneWay, float price) {
+		super();
+		this.flight_id = flight_id;
+		this.idAirline = idAirline;
+		this.scale = scale;
+		this.luggage = luggage;
+		this.departure = departure;
+		this.arrival = arrival;
+		this.oneWay = oneWay;
+		this.price = price;
+	}
+
+
+
+	public Trip(long flight_id, long idAirline, boolean scale, boolean luggage, LocalDateTime departure,
+			LocalDateTime arrival, boolean oneWay) {
+		super();
+		this.flight_id = flight_id;
+		this.idAirline = idAirline;
+		this.scale = scale;
+		this.luggage = luggage;
+		this.departure = departure;
+		this.arrival = arrival;
+		this.oneWay = oneWay;
+	}
+
+
+
+	public Trip(long flight_id, long idAirline, boolean scale, boolean luggage, LocalDateTime departure,
+			LocalDateTime arrival) {
+		super();
+		this.flight_id = flight_id;
+		this.idAirline = idAirline;
+		this.scale = scale;
+		this.luggage = luggage;
+		this.departure = departure;
+		this.arrival = arrival;
+	}
+
+
+
+	public Trip(long flight_id, long idAirline, boolean scale, boolean luggage, LocalDateTime departure) {
+		super();
+		this.flight_id = flight_id;
+		this.idAirline = idAirline;
+		this.scale = scale;
+		this.luggage = luggage;
+		this.departure = departure;
+	}
+
+
+
+	public Trip(long flight_id, long idAirline, boolean scale, boolean luggage) {
+		super();
+		this.flight_id = flight_id;
+		this.idAirline = idAirline;
+		this.scale = scale;
+		this.luggage = luggage;
+	}
+
+
+
+	public Trip(long flight_id, long idAirline, boolean scale) {
+		super();
+		this.flight_id = flight_id;
+		this.idAirline = idAirline;
+		this.scale = scale;
+	}
+
+
+
+	public Trip(long flight_id, long idAirline) {
+		super();
+		this.flight_id = flight_id;
+		this.idAirline = idAirline;
+	}
+
+
+
+	public Trip(long flight_id) {
+		super();
+		this.flight_id = flight_id;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Trip [flight_id=" + flight_id + ", idAirline=" + idAirline + ", from=" + origin + ", dest=" + dest
+				+ ", scale=" + scale + ", luggage=" + luggage + ", departure=" + departure + ", arrival=" + arrival
+				+ ", oneWay=" + oneWay + ", price=" + price + "]";
+	}
+
+
+
+	/**
+	 * @return the flight_id
+	 */
+	public long getFlight_id() {
+		return flight_id;
+	}
+
+
+
+	/**
+	 * @param flight_id the flight_id to set
+	 */
+	public void setFlight_id(long flight_id) {
+		this.flight_id = flight_id;
+	}
+
+
+
+	/**
+	 * @return the idAirline
+	 */
+	public long getIdAirline() {
+		return idAirline;
+	}
+
+
+
+	/**
+	 * @param idAirline the idAirline to set
+	 */
+	public void setIdAirline(long idAirline) {
+		this.idAirline = idAirline;
+	}
+
+
+
+	/**
+	 * @return the from
+	 */
+	public String getOrigin() {
+		return origin;
+	}
+
+
+
+	/**
+	 * @param from the from to set
+	 */
+	public void setOrigin(String origin) {
+		this.origin = origin;
+	}
+
+
+
+	/**
+	 * @return the dest
+	 */
+	public String getDest() {
+		return dest;
+	}
+
+
+
+	/**
+	 * @param dest the dest to set
+	 */
+	public void setDest(String dest) {
+		this.dest = dest;
+	}
+
+
+
+	public Trip(long flight_id, long idAirline, String origin, String dest, boolean scale, boolean luggage,
+			LocalDateTime departure, LocalDateTime arrival, boolean oneWay, float price) {
+		super();
+		this.flight_id = flight_id;
+		this.idAirline = idAirline;
+		this.origin = origin;
+		this.dest = dest;
+		this.scale = scale;
+		this.luggage = luggage;
+		this.departure = departure;
+		this.arrival = arrival;
+		this.oneWay = oneWay;
 		this.price = price;
 	}
 	
