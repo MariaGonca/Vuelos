@@ -22,9 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.solera.ndproyect.ndproyect.entity.Passenger;
-import com.solera.ndproyect.ndproyect.entity.Place;
 import com.solera.ndproyect.ndproyect.service.IPassengerService;
-import com.solera.ndproyect.ndproyect.service.IPlaceService;
 
 //@CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -61,6 +59,7 @@ public class PassengerController {
 	public ResponseEntity<?> create(@Valid @RequestBody Passenger passenger, BindingResult result)
 			throws ParseException {
 		Passenger passengerNew = null;
+		int age = passenger.getAge();
 		Map<String, Object> response = new HashMap<>();
 
 		if (result.hasErrors()) {
@@ -72,13 +71,17 @@ public class PassengerController {
 			response.put("mensaje", "Los campos obligatorios estan vacios");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
+		
+		if(age == 0){
+			passenger.setAge(9);
+		}
 
 		try {
 			passengerNew = passService.save(passenger);
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 		} catch (DataAccessException e) {
-			response.put("mensaje", "Titulo ya existente");
-			response.put("error","Titulo ya existente");
+			response.put("mensaje", "Passenger already exists");
+			response.put("error","Passenger already exists");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

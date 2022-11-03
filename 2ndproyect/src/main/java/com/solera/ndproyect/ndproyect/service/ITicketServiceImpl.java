@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.solera.ndproyect.ndproyect.entity.Ticket;
-import com.solera.ndproyect.ndproyect.repository.IPassengerDao;
 import com.solera.ndproyect.ndproyect.repository.ITicketDao;
 
 @Service

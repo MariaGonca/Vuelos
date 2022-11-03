@@ -3,7 +3,6 @@ package com.solera.ndproyect.ndproyect.service;
 import java.util.List;
 
 import com.solera.ndproyect.ndproyect.entity.AirLine;
-import com.solera.ndproyect.ndproyect.entity.Trip;
 
 public interface IAirLineService {
 

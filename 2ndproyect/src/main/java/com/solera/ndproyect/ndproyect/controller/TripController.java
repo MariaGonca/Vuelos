@@ -1,8 +1,14 @@
 package com.solera.ndproyect.ndproyect.controller;
 
-import java.text.ParseException;
+import java.text.*;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Date;
+
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -21,6 +27,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.solera.ndproyect.ndproyect.entity.Trip;
@@ -106,4 +113,67 @@ public class TripController {
 	}
 	
 	
+	@GetMapping("/trips/filter")
+	public ResponseEntity<?> tripsByAllParams(@RequestParam String origin, String dest, String departure, String arrival, Boolean oneWay) {
+		Map<String, Object> response = new HashMap<>();
+		List<Trip> trip;
+		List<Trip> tripReturn;
+
+		String originNew;
+		String destNew;
+		try {
+			
+			if (origin.equals("")) {
+				origin = null;
+			}
+			if (dest.equals("")) {
+				dest = null;
+			}
+			if (departure.equals("")) {
+				departure = null;
+			}
+			if (arrival.equals("")) {
+				arrival = null;
+			}
+			trip = tripService.findByOriginAndDestAndDepartureAndArrivalAndOneWay(origin, dest, departure, arrival, oneWay);
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al realizar la consulta en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		if (trip == null) {
+			response.put("mensaje", "trip : ".concat(origin.toString().concat(" doesn't exist")));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<List<Trip>>(trip, HttpStatus.OK);
+	}
+
+	@GetMapping("/trips/filterReturn")
+	public ResponseEntity<?> tripsReturn(@RequestParam String origin, String dest, String departure, String arrival) {
+		Map<String, Object> response = new HashMap<>();
+
+		List<Trip> tripReturn;
+
+		String originNew;
+		String destNew;
+		String departureNew;
+		try {
+			originNew = dest;
+			destNew = origin;
+			departureNew = arrival;
+
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+			Date date = formatter.parse(departureNew);
+			tripReturn = tripService.findByOriginAndDestAndDeparture(originNew, destNew, date);
+		} catch (DataAccessException | ParseException e) {
+			response.put("mensaje", "Error al realizar la consulta en la base de datos");
+			response.put("error", e.getMessage());
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		if (tripReturn == null) {
+			response.put("mensaje", "trip : ".concat(origin.toString().concat(" doesn't exist")));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<List<Trip>>(tripReturn, HttpStatus.OK);
+	}
 }

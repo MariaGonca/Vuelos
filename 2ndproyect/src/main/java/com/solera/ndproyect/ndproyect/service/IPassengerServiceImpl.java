@@ -5,10 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.solera.ndproyect.ndproyect.entity.AirLine;
 import com.solera.ndproyect.ndproyect.entity.Passenger;
 import com.solera.ndproyect.ndproyect.repository.IPassengerDao;
-import com.solera.ndproyect.ndproyect.repository.ITripDao;
 
 @Service
 public class IPassengerServiceImpl implements IPassengerService{

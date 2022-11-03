@@ -21,9 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.solera.ndproyect.ndproyect.entity.Place;
 import com.solera.ndproyect.ndproyect.entity.Ticket;
-import com.solera.ndproyect.ndproyect.service.IPlaceService;
 import com.solera.ndproyect.ndproyect.service.ITicketService;
 
 //@CrossOrigin(origins = "http://localhost:4200")

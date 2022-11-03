@@ -1,12 +1,12 @@
 package com.solera.ndproyect.ndproyect.service;
 
+import java.util.Date;
 import java.util.List;
 
-import org.springframework.transaction.annotation.Transactional;	
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.solera.ndproyect.ndproyect.entity.Place;
 import com.solera.ndproyect.ndproyect.entity.Trip;
 import com.solera.ndproyect.ndproyect.repository.ITripDao;
 
@@ -37,10 +37,15 @@ public class ITripServiceImpl implements ITripService{
 		tripDao.deleteById(id);
 	}
 
-	/*@Override
-	public List<Trip> findByOriginAndDestinationAndDepartureAndArrivalAndOneWay(Place origin, Place destination,
-			String departure, String arrival, Boolean oneWay) {
-		return tripDao.findByOriginAndDestinationAndDepartureAndArrivalAndOneWay(origin, destination, departure, arrival, oneWay);
-	}*/
+	@Override
+	public List<Trip> findByOriginAndDestAndDepartureAndArrivalAndOneWay(String origin, String dest,
+			String departure, String arrival, boolean oneWay) {
+		return tripDao.findByOriginAndDestAndDepartureAndArrivalAndOneWay(origin, dest, departure, arrival, oneWay);
+	}
+
+	@Override
+	public List<Trip> findByOriginAndDestAndDeparture(String origin, String dest, Date departure) {
+		return tripDao.findByOriginAndDestAndDeparture(origin, dest, departure);
+	}
 
 }

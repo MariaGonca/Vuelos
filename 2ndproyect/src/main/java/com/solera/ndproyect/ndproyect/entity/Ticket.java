@@ -30,7 +30,6 @@ public class Ticket {
     @JoinColumn(name = "ID_PASSENGER")
 	private Passenger idPassenger;
 	
-	
 	/**
 	 * Instantiates a new ticket.
 	 *
@@ -42,6 +41,16 @@ public class Ticket {
 		this.idTicket = idTicket;
 		this.idTrip = idTrip;
 		this.idPassenger = idPassenger;
+	}
+
+	public Ticket(Trip idTrip, Passenger idPassenger) {
+		this.idTrip = idTrip;
+		this.idPassenger = idPassenger;
+	}
+
+
+
+	public Ticket() {
 	}
 
 	/**

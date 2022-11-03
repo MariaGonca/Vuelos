@@ -11,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -25,7 +24,7 @@ public class AirLine {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long idAirLine;
 	
-	@Column(name = "NAME")
+	@Column(name = "NAME", unique=true)
 	@NotNull
 	@NotEmpty
 	private String name;

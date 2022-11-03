@@ -6,10 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-
-import org.springframework.beans.factory.annotation.Value;
 
 @Entity
 @Table(name="passengers")
@@ -22,28 +19,21 @@ public class Passenger {
 	
 	@Column(name = "NAME")
 	@NotNull
-	@NotEmpty
 	private String name;
 	
 	@Column(name = "USERNAME")
 	@NotNull
-	@NotEmpty
 	private String unsername;
 	
 	@Column(name = "NATIONALITY")
 	@NotNull
-	@NotEmpty
 	private String nationality;
 	
-	@Column(name = "IDENTIFICATION")
+	@Column(name = "IDENTIFICATION", unique   = true)
 	@NotNull
-	@NotEmpty
 	private String identification;
 	
-	@Column(name = "AGE")
-	@NotNull
-	@NotEmpty
-	@Value("${some.key:9}")
+	@Column(name = "AGE", columnDefinition = "int default 9")
 	private int age;
 	
 	public Passenger(Long idPassenger, String name, String unsername, String nationality, String identification) {
