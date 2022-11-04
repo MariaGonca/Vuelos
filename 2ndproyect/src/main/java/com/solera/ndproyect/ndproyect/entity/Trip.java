@@ -47,11 +47,11 @@ public class Trip implements Serializable{
 	
 	@Column(name = "DEPARTURE")
 	@DateTimeFormat(pattern="yyyy-MM-dd")
-	private Date departure;
+	private String departure;
 	
 	@Column(name = "ARRIVAL")
 	@DateTimeFormat(pattern="yyyy-MM-dd")
-	private Date arrival;
+	private String arrival;
 	
 	@Column(name="ONEWAY")
 	@JsonFormat(pattern = "oneWay")
@@ -62,7 +62,7 @@ public class Trip implements Serializable{
 	private float price;
 
 	public Trip(long flight_id, long idAirline, String origin, String dest, Boolean scale, Boolean luggage,
-			Date departure, Date arrival, Boolean oneWay, float price) {
+			String departure, String arrival, Boolean oneWay, float price) {
 		super();
 		this.flight_id = flight_id;
 		this.idAirline = idAirline;
@@ -76,8 +76,8 @@ public class Trip implements Serializable{
 		this.price = price;
 	}
 
-	public Trip(long idAirline, String origin, String dest, Boolean scale, Boolean luggage, Date departure,
-			Date arrival, Boolean oneWay, float price) {
+	public Trip(long idAirline, String origin, String dest, Boolean scale, Boolean luggage, String departure,
+			String arrival, Boolean oneWay, float price) {
 		super();
 		this.idAirline = idAirline;
 		this.origin = origin;
@@ -142,19 +142,19 @@ public class Trip implements Serializable{
 		this.luggage = luggage;
 	}
 
-	public Date getDeparture() {
+	public String getDeparture() {
 		return departure;
 	}
 
-	public void setDeparture(Date departure) {
+	public void setDeparture(String departure) {
 		this.departure = departure;
 	}
 
-	public Date getArrival() {
+	public String getArrival() {
 		return arrival;
 	}
 
-	public void setArrival(Date arrival) {
+	public void setArrival(String arrival) {
 		this.arrival = arrival;
 	}
 

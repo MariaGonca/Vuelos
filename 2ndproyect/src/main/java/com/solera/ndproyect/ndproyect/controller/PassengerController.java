@@ -44,12 +44,12 @@ public class PassengerController {
 		try {
 			passenger = passService.findById(idPassenger);
 		} catch (DataAccessException e) {
-			response.put("mensaje", "Error al realizar la consulta en la base de datos");
+			response.put("MESSAGE", "Error consulting data base");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		if (passenger == null) {
-			response.put("mensaje", "ID: ".concat(idPassenger.toString().concat(" no existe")));
+			response.put("MESSAGE", "ID: ".concat(idPassenger.toString().concat(" no existe")));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<Passenger>(passenger, HttpStatus.OK);
@@ -68,7 +68,7 @@ public class PassengerController {
 					.map(err -> "El campo " + err.getDefaultMessage() + ", " + err.getDefaultMessage())
 					.collect(Collectors.toList());
 
-			response.put("mensaje", "Los campos obligatorios estan vacios");
+			response.put("MESSAGE", "Empty data");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
 		
@@ -80,7 +80,7 @@ public class PassengerController {
 			passengerNew = passService.save(passenger);
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 		} catch (DataAccessException e) {
-			response.put("mensaje", "Passenger already exists");
+			response.put("MESSAGE", "Passenger already exists");
 			response.put("error","Passenger already exists");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -94,12 +94,12 @@ public class PassengerController {
 		try {
 			passService.delete(idPassenger);
 		} catch (DataAccessException e) {
-			response.put("mensaje", "Error al eliminar de la base de datos");
+			response.put("MESSAGE", "Error deleting");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-		response.put("mensaje", "Se ha eliminado con éxito!");
+		response.put("MESSAGE","The Passenger ".concat(idPassenger.toString().concat(" eliminated with success")));
 
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}

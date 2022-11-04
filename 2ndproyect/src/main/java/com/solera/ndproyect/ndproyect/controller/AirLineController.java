@@ -37,19 +37,19 @@ public class AirLineController {
 		return airService.findAll();
 	}
 	
-	@GetMapping("/airlines/{idAirLine}")
+	@GetMapping("/airlines/{idAir}")
 	public ResponseEntity<?> search(@PathVariable Long idAir) {
 		AirLine air = null;
 		Map<String, Object> response = new HashMap<>();
 		try {
 			air = airService.findById(idAir);
 		} catch (DataAccessException e) {
-			response.put("mensaje", "Error al realizar la consulta en la base de datos");
+			response.put("MESSAGE", "Error consulting data base");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		if (air == null) {
-			response.put("mensaje", "La iniciativa con ID: ".concat(idAir.toString().concat(" no existe")));
+			response.put("MESSAGE", "ID: ".concat(idAir.toString().concat(" no existe")));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<AirLine>(air, HttpStatus.OK);
@@ -67,7 +67,7 @@ public class AirLineController {
 					.map(err -> "El campo " + err.getDefaultMessage() + ", " + err.getDefaultMessage())
 					.collect(Collectors.toList());
 
-			response.put("mensaje", "Los campos obligatorios estan vacios");
+			response.put("MESSAGE", "Empty data");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
 
@@ -75,8 +75,8 @@ public class AirLineController {
 			airNew = airService.save(air);
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 		} catch (DataAccessException e) {
-			response.put("mensaje", "Titulo ya existente");
-			response.put("error","Titulo ya existente");
+			response.put("MESSAGE", "already exists");
+			response.put("error","already exists");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 
 		}
@@ -90,12 +90,12 @@ public class AirLineController {
 		try {
 			airService.delete(idAirLine);
 		} catch (DataAccessException e) {
-			response.put("mensaje", "Error al eliminar de la base de datos");
+			response.put("MESSAGE", "Error deleting");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-		response.put("mensaje", "Se ha eliminado con éxito!");
+		response.put("MESSAGE","The Airline ".concat(idAirLine.toString().concat(" eliminated with success")));
 
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}

@@ -54,12 +54,12 @@ public class TripController {
 		try {
 			trip = tripService.findById(flightNumber);
 		} catch (DataAccessException e) {
-			response.put("mensaje", "Error al realizar la consulta en la base de datos");
+			response.put("MESSAGE", "Error consulting data base");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		if (trip == null) {
-			response.put("mensaje", "ID: ".concat(flightNumber.toString().concat(" no existe")));
+			response.put("MESSAGE", "ID: ".concat(flightNumber.toString().concat(" no existe")));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<Trip>(trip, HttpStatus.OK);
@@ -78,7 +78,7 @@ public class TripController {
 					.map(err -> "El campo " + err.getDefaultMessage() + ", " + err.getDefaultMessage())
 					.collect(Collectors.toList());
 
-			response.put("mensaje", "Los campos obligatorios estan vacios");
+			response.put("MESSAGE", "Empty data");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
 	
@@ -88,8 +88,8 @@ public class TripController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 		} catch (DataAccessException e) {
 			logger.info("Exception : {}", e.getMessage());
-			response.put("mensaje", "Titulo ya existente");
-			response.put("error","Titulo ya existente");
+			response.put("MESSAGE", "Already exists");
+			response.put("error","Already exists");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -102,12 +102,12 @@ public class TripController {
 		try {
 			tripService.delete(flightNumber);
 		} catch (DataAccessException e) {
-			response.put("mensaje", "Error al eliminar de la base de datos");
+			response.put("MESSAGE", "Error deleting");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-		response.put("mensaje", "Se ha eliminado con éxito!");
+		response.put("MESSAGE","The Trip ".concat(flightNumber.toString().concat(" eliminated with success")));
 
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
@@ -137,12 +137,12 @@ public class TripController {
 			}
 			trip = tripService.findByOriginAndDestAndDepartureAndArrivalAndOneWay(origin, dest, departure, arrival, oneWay);
 		} catch (DataAccessException e) {
-			response.put("mensaje", "Error al realizar la consulta en la base de datos");
+			response.put("MESSAGE", "Error consulting data base");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		if (trip == null) {
-			response.put("mensaje", "trip : ".concat(origin.toString().concat(" doesn't exist")));
+			response.put("MESSAGE", "trip : ".concat(origin.toString().concat(" doesn't exist")));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<List<Trip>>(trip, HttpStatus.OK);
@@ -166,12 +166,12 @@ public class TripController {
 			Date date = formatter.parse(departureNew);
 			tripReturn = tripService.findByOriginAndDestAndDeparture(originNew, destNew, date);
 		} catch (DataAccessException | ParseException e) {
-			response.put("mensaje", "Error al realizar la consulta en la base de datos");
+			response.put("MESSAGE", "Error consulting data base");
 			response.put("error", e.getMessage());
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		if (tripReturn == null) {
-			response.put("mensaje", "trip : ".concat(origin.toString().concat(" doesn't exist")));
+			response.put("MESSAGE", "trip : ".concat(origin.toString().concat(" doesn't exist")));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<List<Trip>>(tripReturn, HttpStatus.OK);

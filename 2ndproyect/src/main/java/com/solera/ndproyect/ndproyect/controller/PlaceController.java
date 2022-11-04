@@ -44,12 +44,12 @@ public class PlaceController {
 		try {
 			place = placeService.findById(idPlace);
 		} catch (DataAccessException e) {
-			response.put("mensaje", "Error al realizar la consulta en la base de datos");
+			response.put("MESSAGE", "Error consulting data base");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		if (place == null) {
-			response.put("mensaje", "ID: ".concat(idPlace.toString().concat(" no existe")));
+			response.put("MESSAGE", "ID: ".concat(idPlace.toString().concat(" no existe")));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<Place>(place, HttpStatus.OK);
@@ -67,7 +67,7 @@ public class PlaceController {
 					.map(err -> "El campo " + err.getDefaultMessage() + ", " + err.getDefaultMessage())
 					.collect(Collectors.toList());
 
-			response.put("mensaje", "Los campos obligatorios estan vacios");
+			response.put("MESSAGE", "Empty data");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
 
@@ -75,8 +75,8 @@ public class PlaceController {
 			placeNew = placeService.save(place);
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 		} catch (DataAccessException e) {
-			response.put("mensaje", "Titulo ya existente");
-			response.put("error","Titulo ya existente");
+			response.put("MESSAGE", "Already exists");
+			response.put("error","Already exists");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -89,12 +89,12 @@ public class PlaceController {
 		try {
 			placeService.delete(idPlace);
 		} catch (DataAccessException e) {
-			response.put("mensaje", "Error al eliminar de la base de datos");
+			response.put("MESSAGE", "Error deleting");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-		response.put("mensaje", "Se ha eliminado con éxito!");
+		response.put("MESSAGE","The Place ".concat(idPlace.toString().concat(" eliminated with success")));
 
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
