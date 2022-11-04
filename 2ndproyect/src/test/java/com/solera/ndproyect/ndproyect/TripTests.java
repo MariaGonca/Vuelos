@@ -68,7 +68,7 @@ class TripTests {
 	@Test
 	void deleteSpecificTrip_success_test() {
 
-		Response response = given().contentType(ContentType.JSON).when().delete("http://localhost:8080/api/trips/2")
+		Response response = given().contentType(ContentType.JSON).when().delete("http://localhost:8080/api/trips/3")
 				.then().log().all().extract().response();
 
 		Assertions.assertEquals(200, response.statusCode());

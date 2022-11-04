@@ -22,8 +22,6 @@ public class Place {
 	@NotNull
 	@NotEmpty
 	private String name;
-
-
 	
 	public Place(String name) {
 		this.name = name;
